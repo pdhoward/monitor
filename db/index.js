@@ -4,6 +4,9 @@ const { g, b, gr, r, y } =  require('../console')
 const uri = process.env.ATLAS_CONFIGS
 const dbName = process.env.ATLAS_CONFIGS_DB
 const dbCollection = process.env.ATLAS_CONFIGS_COLLECTION
+const authUri = process.env.ATLAS_AUTH
+const authCollection = process.env.ATLAS_AUTH_COLLECTION
+
 
 /**
  * Search the database for the given user
@@ -12,10 +15,10 @@ const dbCollection = process.env.ATLAS_CONFIGS_COLLECTION
 
 export function findUser(token) {
     return new Promise(async (resolve, reject) => {
-        const db = await conn(uri, dbName) 
-        db.collection(dbCollection).findOne({clientId: id}, (err, result) => {        
+        const db = await conn(authUri)         
+        db.collection(authCollection).findOne({password: token}, (err, result) => {        
             if (err) reject(err)
-            delete result.clientId           
+            delete result.password      
             res.json(result)            
             resolve(result)
           })          
