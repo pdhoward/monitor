@@ -18,7 +18,7 @@ const data = [
 ///////////////////////////////////////
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.use('/', express.static(path.join(__dirname, '../public')))
 
 const isDev = (app.get('env') === 'development');
 console.log('isDev: ' + isDev);
@@ -93,6 +93,5 @@ app.get('/api/test', auth, test)
 ///////////////////////////////////
 ///////     active server  ///////
 /////////////////////////////////
-const server = app.listen(4055, function () {
-  console.log(`Listening on port ${server.address().port}`)
-})
+app.listen(PORT, () => console.log(g(`Listening on Port ${PORT}`)))
+

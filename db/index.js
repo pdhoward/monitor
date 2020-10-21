@@ -18,8 +18,7 @@ const findUser = (token, res) => {
         const db = await conn(authUri)         
         db.collection(authCollection).findOne({password: token}, (err, result) => {        
             if (err) reject(err)
-            delete result.password      
-            res.json(result)            
+            delete result.password 
             resolve(result)
           })          
     })

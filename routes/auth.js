@@ -12,13 +12,15 @@ const auth = (router) => {
     if (user instanceof Error) {
        // Adding body of the request as log data
         logger.setLogData(req.params)
-        logger.info(`Token Failed Authorization `)
-       
-        return res.status(401).send(constants.ERR_UNAUTHORIZED)
+        logger.info(`Token Failed Authorization `)   
+        console.log('-------------problem------------')    
+        return
+        //return res.status(401).send(constants.ERR_UNAUTHORIZED)
     }
     logger.setLogData(user)
     logger.info(`Successful Login `)
-    res.locals.user = user
+    req.bag = {}
+    req.bag.user = user
     next()
   })
 }
