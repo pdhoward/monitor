@@ -1,14 +1,24 @@
 // How often one can send an open request to the server (in seconds)
-export const OPEN_DELAY = 30
+const OPEN_DELAY = 30
 
 // Threshold for notification
-export const LONG_OPEN_DURATION = 900000
+const LONG_OPEN_DURATION = 900000
 
 // How many entries to load per page of history
-export const HISTORY_PAGE_SIZE = 100
+const HISTORY_PAGE_SIZE = 100
 
 // Errors
-export const ERR_UNAUTHORIZED = "401 Unauthorized"
-export const ERR_EXCESSIVE_REQUESTS = "Too many requests at one time"
-export const ERR_BAD_SENSOR = "Cannot read sensor"
-export const ERR_INVALID_MODE = "Invalid mode given"
+const ERR_UNAUTHORIZED = "401 Unauthorized"
+const ERR_EXCESSIVE_REQUESTS = "Too many requests at one time"
+const ERR_BAD_SENSOR = "Cannot read sensor"
+const ERR_INVALID_MODE = "Invalid mode given"
+
+module.exports = {
+    OPEN_DELAY,
+    LONG_OPEN_DURATION,
+    HISTORY_PAGE_SIZE,
+    ERR_UNAUTHORIZED,
+    ERR_EXCESSIVE_REQUESTS,
+    ERR_BAD_SENSOR,
+    ERR_INVALID_MODE
+}

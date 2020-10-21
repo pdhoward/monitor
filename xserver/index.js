@@ -51,10 +51,11 @@ process.on('uncaughtException', function (er) {
  /////////////////////////////////////////////////
  ///// Register and Config Routes ///////////////
  ///////////////////////////////////////////////
- const auth =                express.Router({mergeParams: true})
+ const auth =        express.Router({mergeParams: true})
+ const test =        express.Router({mergeParams: true})
  
  require('../routes/auth')(auth)
- 
+ require('../routes/test')(test)
 
 /////////////////////////////////////
 //////////    api routes   /////////

@@ -16,7 +16,7 @@ class Logger {
     constructor(route) {
         this.log_data = null
         this.route = route
-        this.time = time = moment().tz("America/New_York").format("lll")
+        this.time = moment().tz("America/New_York").format("lll")
         const logger = winston.createLogger({
 
             transports: [

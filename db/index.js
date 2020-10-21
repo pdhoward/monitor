@@ -13,7 +13,7 @@ const authCollection = process.env.ATLAS_AUTH_COLLECTION
  * @param {String} token The user's access token
  */
 
-export function findUser(token) {
+const findUser = (token, res) => {
     return new Promise(async (resolve, reject) => {
         const db = await conn(authUri)         
         db.collection(authCollection).findOne({password: token}, (err, result) => {        
@@ -23,4 +23,8 @@ export function findUser(token) {
             resolve(result)
           })          
     })
+}
+
+module.exports = {
+    findUser
 }
