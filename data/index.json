@@ -1,0 +1,147 @@
+[{
+    "id": "c7dfbfd9f64a",
+    "address": "c7:df:bf:d9:f6:4a",
+    "localName": null,
+    "txPowerLevel": null,
+    "rssi": -59,
+    "beaconType": "iBeacon",
+    "iBeacon": {
+      "uuid": "B9407F30-F5F8-466E-AFF9-25556B57FE6D",
+      "major": 21983,
+      "minor": 57807,
+      "txPower": 180
+    }
+  },
+  {
+    "id": "c6debed8f549",
+    "address": "c6:de:be:d8:f5:49",
+    "localName": null,
+    "txPowerLevel": null,
+    "rssi": -59,
+    "beaconType": "eddystoneUid",
+    "eddystoneUid": {
+      "txPower": -35,
+      "namespace": "EDD1EBEAC04E5DEFA017",
+      "instance": "2D3EA3203B6B"
+    }
+  },
+  {
+    "id": "c6debed8f549",
+    "address": "c6:de:be:d8:f5:49",
+    "localName": null,
+    "txPowerLevel": null,
+    "rssi": -59,
+    "beaconType": "eddystoneUrl",
+    "eddystoneUrl": {
+      "txPower": -35,
+      "url": "http://go.esti.be/"
+    }
+  },
+  {
+    "id": "c6debed8f549",
+    "address": "c6:de:be:d8:f5:49",
+    "localName": null,
+    "txPowerLevel": null,
+    "rssi": -59,
+    "beaconType": "eddystoneTlm",
+    "eddystoneTlm": {
+      "batteryVoltage": 6059,
+      "temperature": 28.59765625,
+      "advCnt": 83,
+      "secCnt": 361299
+    }
+  },
+  {
+    "id": "d9d9fe86fb61",
+    "address": "d9:d9:fe:86:fb:61",
+    "localName": null,
+    "txPowerLevel": null,
+    "rssi": -59,
+    "beaconType": "eddystoneEid",
+    "eddystoneEid": {
+      "txPower": -35,
+      "eid": "79c58b83f198ddbe"
+    }
+  },
+  {
+    "id": "c9e1c1dbf84c",
+    "address": "c9:e1:c1:db:f8:4c",
+    "localName": null,
+    "txPowerLevel": null,
+    "rssi": -59,
+    "beaconType": "estimoteTelemetry",
+    "estimoteTelemetry": {
+      "frameType": 2,
+      "subFrameType": 0,
+      "protocolVersion": 2,
+      "shortIdentifier": "2d3ea3203b6b2446",
+      "acceleration": {
+        "x": -0.015748031496062992,
+        "y": -0.07874015748031496,
+        "z": 0.9921259842519685
+      },
+      "moving": false,
+      "gpio": {
+        "pin0": "low",
+        "pin1": "low",
+        "pin2": "high",
+        "pin3": "high"
+      },
+      "errors": {
+        "firmware": false,
+        "clock": false
+      },
+      "pressure": 100304.9765625
+    }
+  },
+  {
+    "id": "c9e1c1dbf84c",
+    "address": "c9:e1:c1:db:f8:4c",
+    "localName": null,
+    "txPowerLevel": null,
+    "rssi": -59,
+    "beaconType": "estimoteTelemetry",
+    "estimoteTelemetry": {
+      "frameType": 2,
+      "subFrameType": 1,
+      "protocolVersion": 2,
+      "shortIdentifier": "2d3ea3203b6b2446",
+      "magneticField": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "light": 80.64,
+      "uptime": {
+        "unitCode": 1,
+        "unitDesc": "minutes",
+        "value": 596
+      },
+      "temperature": 28.75,
+      "batteryVoltage": 6059,
+      "batteryLevel": 95
+    }
+  },
+  {
+    "id": "f8d3c05e8001",
+    "address": "f8:d3:c0:5e:80:01",
+    "localName": null,
+    "txPowerLevel": null,
+    "rssi": -59,
+    "beaconType": "estimoteNearable",
+    "estimoteNearable": {
+      "nearableId": "bd20de5cd074de8d",
+      "temperature": 25.75,
+      "moving": false,
+      "acceleration": {
+        "x": -15.625,
+        "y": -78.125,
+        "z": -1031.25
+      }
+    }
+  }
+
+
+
+]
+  

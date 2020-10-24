@@ -11,13 +11,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@abandonware/noble": "^1.9.2-10",
     "chalk": "^4.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lru-cache": "^6.0.0",
     "moment-timezone": "^0.5.31",
     "mongodb": "^3.6.2",
-    "noble": "^1.9.1",
     "node-fetch": "^2.6.1",
     "nodemailer": "^6.4.14",
     "winston": "^3.3.3"
