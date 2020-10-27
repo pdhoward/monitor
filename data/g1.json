@@ -1,0 +1,39 @@
+[
+    {
+    "timestamp": "2017-04-28T08:16:13Z",
+    "type": "iBeacon",
+    "mac": "CC0101000011",
+    "bleName": "MiniBeacon_00012",
+    "ibeaconUuid": "FDA50693A4E24FB1AFCFC6EB07647825",
+    "ibeaconMajor": 10001,
+    "ibeaconMinor": 19641,
+    "ibeaconTxPower": -58,
+    "rssi": -76,
+    "battery": 100
+    },
+    {
+    "timestamp": "2017-04-28T08:16:14Z",
+    "type":"S1",
+    "mac": "CC3101000034",
+    "bleName": "S1",
+    "rssi": -76,
+    "battery": 100,
+    "temperature": 21.23,
+    "humidity": 43.23
+    },
+    {
+    "timestamp": " 2017-04-28T08:16:14Z",
+    "type":"Unknown",
+    "mac": "EF3101000034",
+    "bleName": "MI",
+    "rssi": -76,
+    "rawData": "3A4E24FB1AFCFC6EB07647825FDA50693A4E24FB1AFCFC6EB07647825"
+    },
+    {
+    "timestamp": " 2017-04-28T08:16:14Z",
+    "type":"Gateway",
+    "mac": "EF3101000034",
+    "gatewayFree": 78,
+    "gatewayLoad":0.5
+    }
+    ]
