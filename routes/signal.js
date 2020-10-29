@@ -1,15 +1,12 @@
 const Cache =                require('lru-cache')
 const Logger =               require('../services/logger')
-const { ConsoleTransportOptions } = require('winston/lib/winston/transports')
 
-const logger = new Logger('auth')
+const logger = new Logger('signal')
 
 const cacheOptions = {
   max: 500,  
-  dispose: function (key, n) {
-    console.log(`${key} disposed`)
-    n.close() }, // auto close based on max age
-  maxAge: 1000 * 60 * 60,
+  //maxAge: 1000 * 60 * 60,
+  maxAge: 3000,
   updateAgeOnGet: true
 }
 
@@ -22,16 +19,21 @@ const getUniqueSignals = (arr, key) => {
 
 // return signals that have not been already detected in last hour
 const getFilteredSignals = (arr) => {
-  return new Promise((resolve, reject) => {
-    let filteredArray = arr.filter(async (u) => {      
+  return new Promise((resolve, reject) => {    
+    let filteredSignals = arr.filter(u => {
+      // return venue signal in all instances
+      if (u.type === 'Gateway') return true
       let key = u.ibeaconUuid
-      let uuid  = await cache.get(key)      
+      let uuid  = cache.get(key) 
+      // if not detected in cache, must be new - return this signal     
       if (!uuid) {        
-        await cache.set(key, u.ibeaconUuid)                 
-      }
-      if (u.type === 'Gateway' || !uuid) return true
+        cache.set(key, u.ibeaconUuid)
+        return true 
+      } 
+      return false      
     })    
-    resolve(filteredArray)
+    resolve(filteredSignals)
+    
   })
 }
 
@@ -40,12 +42,10 @@ let count = 0
 const signal = (router) => {
     router.use(async(req, res, next) => {
         count++
+        if (count % 20 == 0) cache.prune()
         console.log(`Signal number ${count} detected`)      
         let uniqueSignals = getUniqueSignals(req.body, 'ibeaconUuid')
-        let filteredSignals = await getFilteredSignals(uniqueSignals)
-        console.log(filteredSignals)  
-        console.log(`----------iteration complete -- logging cache------`)
-        cache.forEach((value, key) => console.log(key, value))
+        let filteredSignals = await getFilteredSignals(uniqueSignals)      
         res.end() 
   })
 }
