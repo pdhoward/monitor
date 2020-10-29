@@ -34,7 +34,13 @@ module.exports = (url, dbName) => {
       conn = await cache.get(api)  
 
       // if connection is in cache, will reuse it, otherwise create it
-      if (typeof conn === 'undefined' || typeof conn === null) {
+      if (conn) {
+        log.info('Reusing existing MongoDB connection')
+        // create db connection and return
+        let db = conn.db(dbName)
+        resolve(db)                 
+      }
+      else {
         log.info('creating new connection for ' + api);
         const conn = new MongoClient(api, dbOptions);
 
@@ -44,14 +50,8 @@ module.exports = (url, dbName) => {
           await cache.set(api, conn) 
           // create db connection and return
           let db = conn.db(dbName)
-          resolve(db)                   
-        });        
-      }
-      else {
-        log.info('Reusing existing MongoDB connection')
-        // create db connection and return
-        let db = conn.db(dbName)
-        resolve(db)         
-      }
- })
+          resolve(db)         
+        })
+    }
+  })
 }

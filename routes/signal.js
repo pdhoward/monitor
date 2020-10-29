@@ -1,17 +1,15 @@
 const Cache =                require('lru-cache')
-const db  =                  require('../db')
-const constants =            require('../config/constants')
 const Logger =               require('../services/logger')
+const { ConsoleTransportOptions } = require('winston/lib/winston/transports')
 
 const logger = new Logger('auth')
 
 const cacheOptions = {
-  max: 500,
-  length: function (n, key) { return n * 2 + key.length },
+  max: 500,  
   dispose: function (key, n) {
-    console.log(`${key} connection closed`)
+    console.log(`${key} disposed`)
     n.close() }, // auto close based on max age
-  maxAge: 1000 * 60,
+  maxAge: 1000 * 60 * 60,
   updateAgeOnGet: true
 }
 
@@ -22,16 +20,33 @@ const getUniqueSignals = (arr, key) => {
   return [...new Map(arr.map(item => [item[key], item])).values()]
 }
 
+// return signals that have not been already detected in last hour
+const getFilteredSignals = (arr) => {
+  return new Promise((resolve, reject) => {
+    let filteredArray = arr.filter(async (u) => {      
+      let key = u.ibeaconUuid
+      let uuid  = await cache.get(key)      
+      if (!uuid) {        
+        await cache.set(key, u.ibeaconUuid)                 
+      }
+      if (u.type === 'Gateway' || !uuid) return true
+    })    
+    resolve(filteredArray)
+  })
+}
+
 let count = 0
 
 const signal = (router) => {
     router.use(async(req, res, next) => {
         count++
-        console.log(`Signal number ${count} detected`)
-        let uniqueSignals = getUniqueSignals(req.body, 'ibeaconUuid')        
-        console.log(uniqueSignals)
-
-        res.end()
+        console.log(`Signal number ${count} detected`)      
+        let uniqueSignals = getUniqueSignals(req.body, 'ibeaconUuid')
+        let filteredSignals = await getFilteredSignals(uniqueSignals)
+        console.log(filteredSignals)  
+        console.log(`----------iteration complete -- logging cache------`)
+        cache.forEach((value, key) => console.log(key, value))
+        res.end() 
   })
 }
 
