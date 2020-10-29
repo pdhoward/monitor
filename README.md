@@ -16,7 +16,11 @@ Monitor bluetooth activated devices
 
 ## LICENSE
 MIT
+* deployment notes
 
+1. A load balancer may be required, in order handle ble gateways transmitting at 1 second cycles, and a node server ingesting and processing each of those http transactions
+
+2. cache is used to ensure that a visitor is only tagged once every hour for an sms message from a venue. The size of cache may need to be recalibrated base don number of venues and traffic per node server
 
 * Research
 
