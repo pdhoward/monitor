@@ -1,6 +1,6 @@
 
-
-
+--------------------------
+MARKETS
 LEE ANNES BAKERY
 
 generated web page (needs to be regenerated)
@@ -25,3 +25,30 @@ MAC ADDRESS FOR DEVICES - INSERTED INTO AN ARRAY CALLED MONITORS
 "dailytraffic":"400",
 "description":"Best Bakery chain in Atlanta.",
 "location":{"coordinates":[{"$numberDouble":"-84.3865513"},{"$numberDouble":"33.8208465"}],"type":"Point"}}
+
+-------------------------
+SUBSCRIBERS
+Lee Anne
+
+
+--------------
+beacons
+'50765CB7D9EA4E2199A4FA879613A492'
+
+----------------
+product 1 - paoduct category
+6A08635B-25F7-410A-8CF8-60EEFA2E6EAB
+
+product 2 - product tag
+37BB435A-4EAE-47AB-ABA2-750CB2A11A8D
+
+product 3 - product launch
+4AB8C351-79F2-4D67-B75C-723BBB36AA9B
+
+product 4 - brand campaign
+
+
+
+
+
+
