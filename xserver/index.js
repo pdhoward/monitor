@@ -1,18 +1,20 @@
+///////////////////////////////////////////////////////////////
+////////  Proxy Server - Ingest Beacon Signals         ///////
+//////            mainline processing                 ///////
+////// c strategic machines 2020 all rights reserved ///////
+///////////////////////////////////////////////////////////
 
 const express =               require('express')
 const path =                  require('path')
-const noble =                 require('@abandonware/noble');
+const util =                  require('util')
+const { v4: uuidv4 } =        require('uuid');
+const {events} =              require('../events')
 const transport =             require('../config/gmail')
 const { g, b, gr, r, y } =    require('../console');
 
 const app = express()
 
 const PORT = process.env.PORT || 3000;
-const data = [
-  {
-    message: "Life is good"
-  }
-]
 
 ////////////////////////////////////////
 //////middleware and static routes/////
@@ -49,6 +51,57 @@ process.on('uncaughtException', function (er) {
     })
   })
 
+  
+//////////////////////////////////////////////////////////////////////////
+////////////  Event Registration for server, streams and db      ////////
+////////////////////////////////////////////////////////////////////////
+const createServers = () => {
+  return new Promise(async (resolve, reject) => {
+    const servers = await events(app)
+    resolve(servers)
+  })  
+}
+
+const startBroadcasts = async() => {
+  const servers = await createServers()  
+  const pub = servers['pub']  
+  const redis = servers['redis'] 
+  
+  // monitor key channels
+  redis.monitor().then(function (monitor) {
+      monitor.on('monitor', function (time, args, source, database) {
+        console.log(time + ": " + util.inspect(args));
+      });
+    });
+
+  redis.subscribe('device', function (err, count) {
+      console.log(`Currently tracking ${count} channels`)
+  });
+
+  redis.on('message', function (channel, msg) {        
+    let msgObj = JSON.parse(msg)
+    switch (msgObj.Context) {     
+      case 'GeoFence':          
+        console.log(`Channel: ${ channel } Message: ${msg}`);
+        //db.collection('signals').insertOne(msgObj)
+        break;
+      default:
+        console.log(`------No context detected-----`)    
+    }
+  });
+
+  setInterval(() => {
+    let msg = {}
+    msg.UUID = uuidv4()
+    msg.Context = "GeoFence" 
+    msg.Timestamp = Date.now()
+    msg.Body = `Discounts today only`
+    pub.publish('device', JSON.stringify(msg))
+  }, 2000)
+  
+}
+
+
  /////////////////////////////////////////////////
  ///// Register and Config Routes ///////////////
  ///////////////////////////////////////////////
@@ -72,7 +125,9 @@ app.post("/api/signal", auth, signal)
 
 
 ///////////////////////////////////
-///////     active server  ///////
+///////     active servers ///////
 /////////////////////////////////
+startBroadcasts()
+
 app.listen(PORT, () => console.log(g(`Listening on Port ${PORT}`)))
 
