@@ -35,7 +35,7 @@ const startBroadcasts = async() => {
   redis.on('message', function (channel, msg) {        
     let arr = JSON.parse(msg)
             
-    console.log(`Channel: ${ channel } Message: ${arr}`);
+   // message received - do something
        
   });  
 }
@@ -45,6 +45,7 @@ const publish = (router) => {
     router.use(async(req, res, next) => {
         console.log(`-----------debug mode --------------`)
         console.log(req.body)
+        console.log(req.bag)
         pub.publish('signal', JSON.stringify(req.body))
 
         res.end()       

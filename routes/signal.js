@@ -42,6 +42,7 @@ let count = 0
 const signal = (router) => {
     router.use(async(req, res, next) => {
         count++
+        // periodically prune cache for expired signals 
         if (count % 20 == 0) cache.prune()
         console.log(`Signal number ${count} detected`)      
         let uniqueSignals = getUniqueSignals(req.body, 'ibeaconUuid')

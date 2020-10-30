@@ -29,7 +29,7 @@ module.exports = (url, dbName) => {
 
   return new Promise(async (resolve, reject) => {
         
-      const api = url;  // dbname not needed for Atlas connect
+      const api = url;  // dbname embedded in Atlas uri
       let conn;
       conn = await cache.get(api)  
 
