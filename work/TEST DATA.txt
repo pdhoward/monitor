@@ -1,0 +1,27 @@
+
+
+
+LEE ANNES BAKERY
+
+generated web page (needs to be regenerated)
+https://findit.vercel.app/venues/32c9a7f0-22c8-44a1-9768-8917ac50d6db
+
+MAC ADDRESS FOR DEVICES - INSERTED INTO AN ARRAY CALLED MONITORS
+'AC233FC07DA5'
+
+{"_id":{"$oid":"5f3531efd8f6702d7cc5bc5d"},
+"marketid":"32c9a7f0-22c8-44a1-9768-8917ac50d6db",
+"monitors":["AC233FC07DA5"],
+"zipcode":"30324",
+"category":"bakery",
+"name":"Lee Anne's Bakery Shop",
+"latitude":"33.8208465",
+"longitude":"-84.3865513",
+"website":"https://fivedaughtersbakery.com/",
+"address":"1170 Howell Mill Rd, Atlanta, GA 30305, USA",
+"map":"https://www.google.com/maps/place/1170+Howell+Mill+Rd,+Atlanta,+GA+30318/@33.7859285,-84.4130289,18z/data=!3m1!4b1!4m13!1m7!3m6!1s0x88f504eb8c34a999:0x92d3f44024e9b71a!2s1170+Howell+Mill+Rd,+Atlanta,+GA+30318!3b1!8m2!3d33.7859263!4d-84.4119319!3m4!1s0x88f504eb8c34a999:0x92d3f44024e9b71a!8m2!3d33.7859263!4d-84.4119319",
+"phone":"(404) 343-3426",
+"active":true,
+"dailytraffic":"400",
+"description":"Best Bakery chain in Atlanta.",
+"location":{"coordinates":[{"$numberDouble":"-84.3865513"},{"$numberDouble":"33.8208465"}],"type":"Point"}}

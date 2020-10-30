@@ -26,7 +26,7 @@ const getFilteredSignals = (arr) => {
       let key = u.ibeaconUuid
       let uuid  = cache.get(key) 
       // if not detected in cache, must be new - return this signal     
-      if (!uuid) {        
+      if (!uuid) {   
         cache.set(key, u.ibeaconUuid)
         return true 
       } 
@@ -45,8 +45,10 @@ const signal = (router) => {
         if (count % 20 == 0) cache.prune()
         console.log(`Signal number ${count} detected`)      
         let uniqueSignals = getUniqueSignals(req.body, 'ibeaconUuid')
-        let filteredSignals = await getFilteredSignals(uniqueSignals)      
-        res.end() 
+        let filteredSignals = await getFilteredSignals(uniqueSignals) 
+        // attach to req for publication
+        req.body = filteredSignals
+        next()
   })
 }
 
