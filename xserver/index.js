@@ -11,7 +11,7 @@ const { g, b, gr, r, y } =    require('../console');
 
 const app = express()
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 ////////////////////////////////////////
 //////middleware and static routes/////

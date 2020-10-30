@@ -2,9 +2,8 @@
 //////////////////////////////////////////////////////////////////////////
 ////////////  Event Registration for server, streams and db      ////////
 ////////////////////////////////////////////////////////////////////////
-const { emitWarning } = require('process');
-const util =                  require('util')
-const { v4: uuidv4 } =        require('uuid');
+
+const util =                  require('util');
 const {events} =              require('../events')
 let pub
 let redis
@@ -26,28 +25,14 @@ const startBroadcasts = async() => {
       monitor.on('monitor', function (time, args, source, database) {
         console.log(time + ": " + util.inspect(args));
       });
-    });
-
-  redis.subscribe('signal', function (err, count) {
-      console.log(`Currently tracking ${count} channels`)
-  });
-
-  redis.on('message', function (channel, msg) {        
-    let arr = JSON.parse(msg)
-            
-   // message received - do something
-       
-  });  
+    }); 
 }
+
 startBroadcasts()
 
 const publish = (router) => {
-    router.use(async(req, res, next) => {
-        console.log(`-----------debug mode --------------`)
-        console.log(req.body)
-        console.log(req.bag)
+    router.use(async(req, res, next) => {       
         pub.publish('signal', JSON.stringify(req.body))
-
         res.end()       
   })
 }
