@@ -13,9 +13,8 @@ const auth = (router) => {
           logger.setLogData(req.params)
           logger.info(`Token Failed Authorization `) 
           return res.status(401).send(constants.ERR_UNAUTHORIZED)
-      }      
-      //logger.setLogData(venue)
-      logger.info(`Venue device successfully validated `)
+      } 
+      logger.info(`Device for ${venue[0].name} successfully validated `)
       req.bag = {}
       req.bag.venue = venue
       next()

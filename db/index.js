@@ -11,24 +11,15 @@ const machineDb = process.env.ATLAS_MACHINE_DB
 const marketsCollection = process.env.ATLAS_MACHINE_MARKETS
 
 /**
- * Search the database for the given user
+ * Search the database for a venue
  * @param {String} token The user's access token
  */
 
-const findUser = (token, res) => {
-    return new Promise(async (resolve, reject) => {
-        const db = await conn(authUri, authdb)         
-        db.collection(authCollection).findOne({password: token}, (err, result) => {        
-            if (err) reject(err)
-            delete result.password 
-            resolve(result)
-          })          
-    })
-}
 
 const findVenue = (req, res) => {
     return new Promise(async (resolve, reject) => {
-        const db = await conn(machineUri)
+        const db = await conn(machineUri, machineDb)
+        // scan array of signal objects
         let filterVenue = req.body.filter(u => {
             // find and return venue signal
             if (u.type === 'Gateway') return true           
@@ -47,7 +38,6 @@ const findVenue = (req, res) => {
     })
 }
 
-module.exports = {
-    findUser,
+module.exports = {    
     findVenue
 }
