@@ -57,7 +57,7 @@ process.on('uncaughtException', function (er) {
 ////////////////////////////////////////////////////////////////////////
 const createServers = () => {
   return new Promise(async (resolve, reject) => {
-    const servers = await events(app)
+    const servers = await events()
     resolve(servers)
   })  
 }
