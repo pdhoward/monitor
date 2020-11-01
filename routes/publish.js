@@ -31,8 +31,10 @@ const startBroadcasts = async() => {
 startBroadcasts()
 
 const publish = (router) => {
-    router.use(async(req, res, next) => {       
-        pub.publish('signal', JSON.stringify(req.body))
+    router.use(async(req, res, next) => {
+        // req.body - array from BLE Gateway. req.bag - Venue profile
+        let signalObj =  [...req.body, ...req.bag.venue] 
+        pub.publish('signal', JSON.stringify(signalObj))
         res.end()       
   })
 }
