@@ -20,12 +20,12 @@ const startBroadcasts = async() => {
   pub = servers['pub']  
   redis = servers['redis'] 
   
-  // monitor key channels
-  redis.monitor().then(function (monitor) {
-      monitor.on('monitor', function (time, args, source, database) {
-        console.log(time + ": " + util.inspect(args));
-      });
-    }); 
+  // monitor key channels - logs every event
+  // redis.monitor().then(function (monitor) {
+  //     monitor.on('monitor', function (time, args, source, database) {
+  //       console.log(time + ": " + util.inspect(args));
+  //     });
+  //   }); 
 }
 
 startBroadcasts()
