@@ -4,31 +4,54 @@ const Logger =               require('../services/logger')
 
 const logger = new Logger('auth')
 
+
+// subscriber signals have an ibeacon uuid and is a type of ibeacon
+const isSubscriberSignal = (obj, key, key2, value) => {
+  return new Promise((resolve, reject) => {    
+    let result = obj.hasOwnProperty(key) && (obj[key2] === value)
+    resolve(result)
+  }) 
+}
+
 //////////////////////////////////////////////////////
 /////  validate signals against registered members //
 ////     capture and return registered profiles   //
 ///////////////////////////////////////////////////
 const authguest = (router) => {
     router.use(async(req, res, next) => {
-      // confirm that the signal received has a gateway object      
-      // scan array of signal objects
-      let filterVenue = req.body.filter(u => {
-        // find and return venue signal
-        if (u.type === 'Gateway') return true           
-        return false 
-      })
-      // check venue signal against venues registered in database machine/markets
-      const venue = await db.findVenue(filterVenue).catch(err => new Error(err))
-      if (venue instanceof Error) {
-        // Adding body of the request as log data
-          logger.setLogData(req.params)
-          logger.info(`Token Failed Authorization `) 
-          return res.status(401).send(constants.ERR_UNAUTHORIZED)
-      } 
-      logger.info(`Device for ${venue[0].name} successfully validated `)
-      req.bag = {}
-      req.bag.venue = venue
-      next()
+      
+     // need to process each subscriber signal in array in sequence for db reads
+    for (const a of req.body) {
+      // subscriber signals have an ibeacon uuid and is a type of ibeacon
+      let isSubscriberTag = await isSubscriberSignal(a, 'ibeaconUuid', 'type', 'iBeacon')
+     
+      if (isSubscriberTag) {
+        // if is a subscriber tag, check to if it is registered to a subscriber
+        const subscriber = await db.findSubscriberAndUpdate(a, req.bag.venue).catch(err => new Error(err))
+       
+        if (subscriber instanceof Error) {     
+            logger.info(`ERROR - DB operation failed on subscriber retrievel with ${subscriber} `) 
+            return
+        }
+        // valid tag and a registered subscriber
+        if ((subscriber.length > 0) && (subscriber[0].uuid)) {    
+         
+          if (req.bag) {
+            req.bag.subscriber = subscriber
+          } else {
+            req.bag = {}
+            req.bag.subscriber = subscriber
+          }
+          logger.info(`Subscriber ${subscriber[0].name} successfully validated `)
+          next()
+        } else {
+          logger.info(`Guest signal ${a} not authorized `)
+          next()
+        }
+        
+      }
+    }
+      
   })
 }
 

@@ -35,6 +35,29 @@ const findVenue = (venue) => {
     })
 }
 
+const findSubscriberAndUpdate = (signal, venue) => {
+    return new Promise(async (resolve, reject) => {  
+        const db = await conn(authUri, authDb)
+        let signalUUID = signal.ibeaconUuid
+        let marketid = venue[0].marketid
+        let marketstamp = Date.now()
+        // updates doc but returns the preupdated one - so we can compare old and new timestamps
+        db.collection(authCollection)
+            .findOneAndUpdate({uuid: signalUUID }, {$set: {marketid: marketid, marketstamp: marketstamp}, $inc: {marketnotices: 1}})
+            .then((result) => {               
+                if (result.value) {
+                    result.value.currentstamp = marketstamp
+                    resolve([result.value])
+                } else {
+                    resolve([])
+                }
+                
+            })
+            .catch(err => reject(err))      
+    })
+}
+
 module.exports = {    
-    findVenue
+    findVenue,
+    findSubscriberAndUpdate
 }

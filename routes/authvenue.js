@@ -18,6 +18,7 @@ const authvenue = (router) => {
       })
       if (filterVenue.length == 0) {        
         logger.info(`${Date.now()} Signal eliminated. No Gateway (venue) object detected. ${req.body} `)
+        req.bag = {}
         req.bag.venue = [] 
         return res.status(401).send(constants.ERR_BAD_GATEWAY)
       } 

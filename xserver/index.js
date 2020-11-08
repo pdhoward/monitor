@@ -70,8 +70,8 @@ process.on('uncaughtException', function (er) {
 // Endpoint for testing route
 app.get('/api/test', authvenue, test)
 
-// Endpoint for signal detection
-app.post("/api/signal", [authvenue, authguest, signal, publish])
+// Endpoint for signal detection - filter dups and noise then proceed
+app.post("/api/signal", [signal, authvenue, authguest, publish])
 
 
 ///////////////////////////////////

@@ -14,7 +14,15 @@ const cache = new Cache(cacheOptions)
 
 // eliminate duplicate objects in an array based on the key ibeaconUuid
 const getUniqueSignals = (arr, key) => {
-  return [...new Map(arr.map(item => [item[key], item])).values()]
+  if (Array.isArray(arr)) {
+    return [...new Map(arr.map(item => [item[key], item])).values()]
+    
+  } else {
+    console.log(`---type error in signal.js---`)
+    console.log(arr)
+    return []
+  }
+ 
 }
 
 // return signals that have not been already detected in last hour
