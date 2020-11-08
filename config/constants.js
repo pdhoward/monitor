@@ -11,6 +11,7 @@ const HISTORY_PAGE_SIZE = 100
 const ERR_UNAUTHORIZED = "401 Unauthorized"
 const ERR_EXCESSIVE_REQUESTS = "Too many requests at one time"
 const ERR_BAD_SENSOR = "Cannot read sensor"
+const ERR_BAD_GATEWAY = "Did not detect a gateway (venue) object in signal"
 const ERR_INVALID_MODE = "Invalid mode given"
 
 module.exports = {
@@ -20,5 +21,6 @@ module.exports = {
     ERR_UNAUTHORIZED,
     ERR_EXCESSIVE_REQUESTS,
     ERR_BAD_SENSOR,
+    ERR_BAD_GATEWAY,
     ERR_INVALID_MODE
 }

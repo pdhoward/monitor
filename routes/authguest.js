@@ -8,7 +8,7 @@ const logger = new Logger('auth')
 /////  validate signals against registered members //
 ////     capture and return registered profiles   //
 ///////////////////////////////////////////////////
-const auth = (router) => {
+const authguest = (router) => {
     router.use(async(req, res, next) => {
       // confirm that the signal received has a gateway object      
       // scan array of signal objects
@@ -32,4 +32,4 @@ const auth = (router) => {
   })
 }
 
-module.exports = auth
+module.exports = authguest

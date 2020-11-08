@@ -24,10 +24,13 @@ const findVenue = (venue) => {
         // find mac and validate against registered venue device
         if (venue){token = venue[0].mac}   
         db.collection(marketsCollection)
-            .find({monitors: token })
+            //.find({monitors: token }) 
+            .find({monitors: 'hello world' })         
             .toArray()
-            .then((result) => {        
-                delete result[0].monitors
+            .then((result) => {   
+                console.log('-----------db fn --------')
+                console.log(result) 
+                if (result.length > 0) delete result[0].monitors
                 resolve(result)
             })          
     })

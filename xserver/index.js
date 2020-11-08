@@ -68,7 +68,7 @@ process.on('uncaughtException', function (er) {
 ///////////////////////////////////
 
 // Endpoint for testing route
-app.get('/api/test', auth, test)
+app.get('/api/test', authvenue, test)
 
 // Endpoint for signal detection
 app.post("/api/signal", [authvenue, authguest, signal, publish])
