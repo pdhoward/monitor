@@ -22,17 +22,16 @@ const findVenue = (venue) => {
         
         let token = 'unknown'
         // find mac and validate against registered venue device
+        // returns an empty array if venue not in db
         if (venue){token = venue[0].mac}   
         db.collection(marketsCollection)
-            //.find({monitors: token }) 
-            .find({monitors: 'hello world' })         
+            .find({monitors: token })                     
             .toArray()
-            .then((result) => {   
-                console.log('-----------db fn --------')
-                console.log(result) 
+            .then((result) => {  
                 if (result.length > 0) delete result[0].monitors
                 resolve(result)
-            })          
+            })
+            .catch(err => reject(err))        
     })
 }
 
