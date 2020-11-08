@@ -16,18 +16,13 @@ const marketsCollection = process.env.ATLAS_MACHINE_MARKETS
  */
 
 
-const findVenue = (req, res) => {
+const findVenue = (venue) => {
     return new Promise(async (resolve, reject) => {
         const db = await conn(machineUri, machineDb)
-        // scan array of signal objects
-        let filterVenue = req.body.filter(u => {
-            // find and return venue signal
-            if (u.type === 'Gateway') return true           
-            return false 
-          })
+        
         let token = 'unknown'
         // find mac and validate against registered venue device
-        if (filterVenue){token = filterVenue[0].mac}   
+        if (venue){token = venue[0].mac}   
         db.collection(marketsCollection)
             .find({monitors: token })
             .toArray()

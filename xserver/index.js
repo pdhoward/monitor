@@ -47,17 +47,18 @@ process.on('uncaughtException', function (er) {
        process.exit(1)
     })
   })
-
  
  /////////////////////////////////////////////////
  ///// Register and Config Routes ///////////////
  ///////////////////////////////////////////////
- const auth =        express.Router({mergeParams: true})
+ const authvenue =   express.Router({mergeParams: true})
+ const authguest =   express.Router({mergeParams: true})
  const signal =      express.Router({mergeParams: true})
  const publish =     express.Router({mergeParams: true})
  const test =        express.Router({mergeParams: true})
  
- require('../routes/auth')(auth)
+ require('../routes/authvenue')(authvenue)
+ require('../routes/authguest')(authguest)
  require('../routes/signal')(signal)
  require('../routes/publish')(publish)
  require('../routes/test')(test)
@@ -70,7 +71,7 @@ process.on('uncaughtException', function (er) {
 app.get('/api/test', auth, test)
 
 // Endpoint for signal detection
-app.post("/api/signal", auth, signal, publish)
+app.post("/api/signal", [authvenue, authguest, signal, publish])
 
 
 ///////////////////////////////////
