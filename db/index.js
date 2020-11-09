@@ -41,12 +41,11 @@ const findSubscriberAndUpdate = (signal, venue) => {
         let signalUUID = signal.ibeaconUuid
         let marketid = venue[0].marketid
         let marketstamp = Date.now()
-        // updates doc but returns the preupdated one - so we can compare old and new timestamps
+        // updates doc but returns the pre-updated one - with marketstamp reflecting time of last detected signal
         db.collection(authCollection)
             .findOneAndUpdate({uuid: signalUUID }, {$set: {marketid: marketid, marketstamp: marketstamp}, $inc: {marketnotices: 1}})
             .then((result) => {               
-                if (result.value) {
-                    result.value.currentstamp = marketstamp
+                if (result.value) {                    
                     resolve([result.value])
                 } else {
                     resolve([])

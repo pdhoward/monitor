@@ -2,7 +2,7 @@
 const OPEN_DELAY = 30
 
 // Threshold for notification
-const LONG_OPEN_DURATION = 900000
+const ELAPSED_TIME_LAST_DETECTED = 30000
 
 // How many entries to load per page of history
 const HISTORY_PAGE_SIZE = 100
@@ -16,7 +16,7 @@ const ERR_INVALID_MODE = "Invalid mode given"
 
 module.exports = {
     OPEN_DELAY,
-    LONG_OPEN_DURATION,
+    ELAPSED_TIME_LAST_DETECTED,
     HISTORY_PAGE_SIZE,
     ERR_UNAUTHORIZED,
     ERR_EXCESSIVE_REQUESTS,
