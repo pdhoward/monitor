@@ -19,7 +19,7 @@ const isSubscriberSignal = (obj, key, key2, value) => {
 ///////////////////////////////////////////////////
 const authguest = (router) => {
     router.use(async(req, res, next) => {
-      
+    let subscriberArray = []
      // need to process each subscriber signal in array in sequence for db reads
     for (const a of req.body) {
       // subscriber signals have an ibeacon uuid and is a type of ibeacon
@@ -36,21 +36,23 @@ const authguest = (router) => {
         // valid tag and a registered subscriber
         if ((subscriber.length > 0) && (subscriber[0].uuid)) {    
          
-          if (req.bag) {
-            req.bag.subscriber = subscriber
-          } else {
-            req.bag = {}
-            req.bag.subscriber = subscriber
-          }
+          subscriberArray.push(subscriber)
           logger.info(`Subscriber ${subscriber[0].name} successfully validated `)
-          next()
+          
         } else {
           logger.info(`Guest signal ${a} not authorized `)
-          next()
+          
         }
         
       }
     }
+    if (req.bag) {
+      req.bag.subscribers = subscriberArray
+    } else {
+      req.bag = {}
+      req.bag.subscribers = subscriberArray
+    }
+    next()
       
   })
 }

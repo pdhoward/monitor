@@ -18,14 +18,7 @@ const createServers = () => {
 const startBroadcasts = async() => {
   const servers = await createServers()  
   pub = servers['pub']  
-  redis = servers['redis'] 
-  
-  // monitor key channels - logs every event
-  // redis.monitor().then(function (monitor) {
-  //     monitor.on('monitor', function (time, args, source, database) {
-  //       console.log(time + ": " + util.inspect(args));
-  //     });
-  //   }); 
+  redis = servers['redis']   
 }
 
 startBroadcasts()
@@ -33,7 +26,7 @@ startBroadcasts()
 const publish = (router) => {
     router.use(async(req, res, next) => {
         // req.body - array from BLE Gateway. req.bag - Venue profile
-        let signalObj =  [...req.body, ...req.bag.venue] 
+        let signalObj =  [...req.body, ...req.bag.venue, ...req.bag.subscribers] 
         pub.publish('signal', JSON.stringify(signalObj))
         res.end()       
   })

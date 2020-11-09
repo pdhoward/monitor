@@ -5,7 +5,7 @@ const logger = new Logger('signal')
 
 const cacheOptions = {
   max: 500,  
-  //maxAge: 1000 * 60 * 60,
+  //maxAge: 1000 * 3
   maxAge: 3000,
   updateAgeOnGet: true
 }
