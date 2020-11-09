@@ -36,7 +36,7 @@ const authguest = (router) => {
         // valid tag and a registered subscriber
         if ((subscriber.length > 0) && (subscriber[0].uuid)) {    
          
-          subscriberArray.push(subscriber)
+          subscriberArray.push(...subscriber)
           logger.info(`Subscriber ${subscriber[0].name} successfully validated `)
           
         } else {
