@@ -25,7 +25,7 @@ const getUniqueSignals = (arr, key) => {
  
 }
 
-// return signals that have not been already detected in last hour
+// return signals that have not been already detected within maxAge on cache
 const getFilteredSignals = (arr) => {
   return new Promise((resolve, reject) => {    
     let filteredSignals = arr.filter(u => {
