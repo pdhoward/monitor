@@ -56,6 +56,7 @@ const signal = (router) => {
         let uniqueSignals = getUniqueSignals(req.body, 'ibeaconUuid')
         let filteredSignals = await getFilteredSignals(uniqueSignals) 
         // attach to req for publication
+        console.log(filteredSignals)
         req.body = filteredSignals
         next()
   })
