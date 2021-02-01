@@ -72,6 +72,7 @@ process.on('uncaughtException', function (er) {
  const authguest =   express.Router({mergeParams: true})
  const signal =      express.Router({mergeParams: true})
  const publish =     express.Router({mergeParams: true})
+ const detect =      express.Router()
  const test =        express.Router({mergeParams: true})
  
  require('../routes/about')(about)
@@ -80,6 +81,7 @@ process.on('uncaughtException', function (er) {
  require('../routes/authguest')(authguest)
  require('../routes/signal')(signal)
  require('../routes/publish')(publish)
+ require('../routes/detect')(detect)
  require('../routes/test')(test)
 
 /////////////////////////////////////
@@ -88,13 +90,15 @@ process.on('uncaughtException', function (er) {
 
 app.use(header)
 app.get('/about', about)
-app.get('/detect', [signal])
+
+// endpoint for signal emulations. trigger from homepage
+app.get('/detect', [detect])
 
 // Endpoint for testing route
 app.get('/api/test', authvenue, test)
 
-// Endpoint for signal detection - filter dups and noise then proceed
-// received from the gateway deviced installed in a value
+// Endpoint for BLE signal detection - filter all dups and noise then proceed
+// received from the gateway deviced installed in a venue
 app.post("/api/signal", [signal, authvenue, authguest, publish])
 
 ///////////////////////////////////

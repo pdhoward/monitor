@@ -1,7 +1,7 @@
 
 const dayjs =               require('dayjs')
 const utc =                 require('dayjs/plugin/utc')
-const {dbProximity} =       require('../db')
+const {findActiveTags} =    require('../db')
 const Logger =              require('../services/logger')
 const { v4: uuidv4 } =      require('uuid')
 const { g, b, gr, r, y } =  require('../console')
@@ -25,28 +25,7 @@ const createServers = () => {
     resolve(servers)
   })  
 }
-//////////////////////////////////////////
 
-const init = () => {
-  // select all grocery stores and super markets
-  await dbProximity.db('proximity').collection('venues')
-    .find({market: {$in: ['Grocery Stores', 'Supermarkets']}})
-    .toArray()
-    .then(data => {
-      let newarray = data.map(d => d.marketid)
-      venuearray = [...newarray]   
-    })  
-}
-
-if (dbProximity.isConnected()) {
-  console.log(g(`DB Ready`))
-  init();
-} else {
-  dbProximity.connect().then(function () {
-    console.log(g(`Reconnect to DB`))
-    init();
-  });
-}
 
 const startReceiving = async() => {
     const servers = await createServers()  
@@ -77,7 +56,12 @@ const startReceiving = async() => {
   
       logger.info(`Received ${arr.length} signals from ${venue.name} on ${date}`) 
      
-      pub.publish('signal', JSON.stringify(arr))
+      findActiveTags([{marketid: '739a8463-ac98-4825-a707-a8d0384093e0'}])
+        .then((result => {
+          console.log(`Retrieved Active Tag`)
+          console.log(result)
+        }))
+      //pub.publish('signal', JSON.stringify(arr))
 
     //   for (const subscriber of subscribers) {
     //     // do something 
@@ -90,7 +74,7 @@ const startReceiving = async() => {
       router.use(async(req, res, next) => {
          // subscribe and start detecting demo signals
           startReceiving()
-          res.end()       
+          res.status(200).redirect('/')     
     })
   }
 
