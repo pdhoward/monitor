@@ -71,14 +71,6 @@ process.on('uncaughtException', function (er) {
 //////////    api routes   /////////
 ///////////////////////////////////
 
-// http route for emulating detection on venue visitor
-app.use((req, res, next) =>{
-  console.log(`this is what i see`)
-  console.log(req.url)
-  console.log(req.path)
-  console.log(req.protocol)
-  next()
-})
 app.use(header)
 app.get('/about', about)
 app.get('/detect', [signal])
