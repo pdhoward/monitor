@@ -51,12 +51,16 @@ process.on('uncaughtException', function (er) {
  /////////////////////////////////////////////////
  ///// Register and Config Routes ///////////////
  ///////////////////////////////////////////////
+ const about =       express.Router()
+ const header =      express.Router()
  const authvenue =   express.Router({mergeParams: true})
  const authguest =   express.Router({mergeParams: true})
  const signal =      express.Router({mergeParams: true})
  const publish =     express.Router({mergeParams: true})
  const test =        express.Router({mergeParams: true})
  
+ require('../routes/about')(about)
+ require('../routes/header')(header)
  require('../routes/authvenue')(authvenue)
  require('../routes/authguest')(authguest)
  require('../routes/signal')(signal)
@@ -67,12 +71,24 @@ process.on('uncaughtException', function (er) {
 //////////    api routes   /////////
 ///////////////////////////////////
 
+// http route for emulating detection on venue visitor
+app.use((req, res, next) =>{
+  console.log(`this is what i see`)
+  console.log(req.url)
+  console.log(req.path)
+  console.log(req.protocol)
+  next()
+})
+app.use(header)
+app.get('/about', about)
+app.get('/detect', [signal])
+
 // Endpoint for testing route
 app.get('/api/test', authvenue, test)
 
 // Endpoint for signal detection - filter dups and noise then proceed
+// received from the gateway deviced installed in a value
 app.post("/api/signal", [signal, authvenue, authguest, publish])
-
 
 ///////////////////////////////////
 ///////     active servers ///////
