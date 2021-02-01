@@ -1,13 +1,12 @@
 
-const WebSocket =               require('ws')
-const {socketevents} =          require('./sockets')
-//const {dbevents} =              require('./db')
-const { g, b, gr, r, y } =      require('../console');
-
 ////////////////////////////////////////////////////////////////
 ////////////////Register Events and Start Server //////////////
 //////////////////////////////////////////////////////////////
 const {redisevents} =           require('./redis')
+const WebSocket =               require('ws')
+const {socketevents} =          require('./sockets')
+//const {dbevents} =              require('./db')
+const { g, b, gr, r, y } =      require('../console');
 
 const wss = new WebSocket.Server({noServer: true });
 

@@ -35,9 +35,9 @@ const init = () => {
     .then(data => {
       let newarray = data.map(d => d.marketid)
       venuearray = [...newarray]   
-    })
-  
+    })  
 }
+
 if (dbProximity.isConnected()) {
   console.log(g(`DB Ready`))
   init();

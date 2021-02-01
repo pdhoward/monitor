@@ -22,7 +22,6 @@ const connect = () => {
         ws.onclose = onClose;
         ws.onmessage = onMessage;
         ws.onerror = onError;
-        
     } else {
         alert("WebSockets not supported on your browser.");
     } 
@@ -48,11 +47,6 @@ const onError = (evt) => {
     output.innerHTML += "<p class = 'error'>ERROR: " 
       + evt.data + "</p>";
 }
-const fire = () => {    
-    const username = getElement('fname').value || '???'
-    ws.send(`${username}: ${getElement('message').value}`);
-    getElement('message').value = '';
-};
 
 const init = () => {
     output = document.getElementById("sysoutput");    
