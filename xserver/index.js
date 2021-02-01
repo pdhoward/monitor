@@ -5,11 +5,13 @@
 ///////////////////////////////////////////////////////////
 
 const express =               require('express')
+const { createServer } =      require('http')
 const path =                  require('path')
 const transport =             require('../config/gmail')
 const { g, b, gr, r, y } =    require('../console');
 
 const app = express()
+const server = createServer(app)
 
 const PORT = process.env.PORT || 4000;
 
@@ -22,6 +24,19 @@ app.use('/', express.static(path.join(__dirname, '../public')))
 
 const isDev = (app.get('env') === 'development');
 console.log('isDev: ' + isDev);
+
+
+//////////////////////////////////////////////////////////////////
+////////////  Event Registration for streams and db      ////////
+////////////////////////////////////////////////////////////////
+
+const {wss} = require('../events');
+
+server.on('upgrade', (request, socket, head) => {
+    wss.handleUpgrade(request, socket, head, (socket) => {
+        wss.emit('connection', socket, request);
+    });     
+})
 
 /////////////////////////////////////////
 ///// alerts for platform errors ///////
@@ -86,5 +101,5 @@ app.post("/api/signal", [signal, authvenue, authguest, publish])
 ///////     active servers ///////
 /////////////////////////////////
 
-app.listen(PORT, () => console.log(g(`Listening on Port ${PORT}`)))
+server.listen(PORT, () => console.log(g(`Listening on Port ${PORT}`)))
 
