@@ -57,14 +57,13 @@ const findSubscriberAndUpdate = (signal, venue) => {
     })
 }
 
-const findActiveTags = (venue) => {
+// find active product tags for a specific venue
+const findActiveTags = (parm) => {
     return new Promise(async (resolve, reject) => {  
-        const db = await conn(proximityurl, proximityDb)        
-        let marketid = venue[0].marketid
-        let marketstamp = Date.now()
-        
+        const db = await conn(proximityurl, proximityDb)      
+
         db.collection(proximityActiveTags)
-            .find({marketid: marketid })
+            .find(parm)
             .toArray()
             .then((result) => {                 
                 resolve(result)

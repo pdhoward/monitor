@@ -44,11 +44,11 @@ const startReceiving = async() => {
       console.log(arr)
       
       let venues = arr.filter(u => {       
-        if (u.type === 'Venue') return true           
+        if (u.type === 'venue') return true           
         return false 
       })
       let subscribers = arr.filter(u => {       
-        if (u.type === 'Subscriber') return true           
+        if (u.type === 'subscriber') return true           
         return false 
       })
   
@@ -56,7 +56,7 @@ const startReceiving = async() => {
   
       logger.info(`Received ${arr.length} signals from ${venue.name} on ${date}`) 
      
-      findActiveTags([{marketid: 'aa22a2d5-7339-4b97-9606-ebfa3309f475'}])
+      findActiveTags({monitors: venues[0].mac})
         .then((result => {
           console.log(`Retrieved Active Tag`)
           console.log(result)
