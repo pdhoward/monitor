@@ -56,7 +56,7 @@ const startReceiving = async() => {
   
       logger.info(`Received ${arr.length} signals from ${venue.name} on ${date}`) 
      
-      findActiveTags([{marketid: '739a8463-ac98-4825-a707-a8d0384093e0'}])
+      findActiveTags([{marketid: 'aa22a2d5-7339-4b97-9606-ebfa3309f475'}])
         .then((result => {
           console.log(`Retrieved Active Tag`)
           console.log(result)

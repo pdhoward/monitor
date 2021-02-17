@@ -18,7 +18,7 @@ const createServers = () => {
 const startBroadcasts = async() => {
   const servers = await createServers()  
   pub = servers['pub']  
-  redis = servers['redis']   
+  redis = servers['redis']  
 }
 
 startBroadcasts()
@@ -28,7 +28,7 @@ const publish = (router) => {
         // req.body - array from BLE Gateway. req.bag - Venue profile
         let signalObj =  [...req.body, ...req.bag.venue, ...req.bag.subscribers] 
         pub.publish('signal', JSON.stringify(signalObj))
-        res.end()       
+        res.end()   
   })
 }
 
